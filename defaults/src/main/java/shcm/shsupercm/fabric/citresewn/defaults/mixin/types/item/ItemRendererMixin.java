@@ -65,11 +65,15 @@ public class ItemRendererMixin {
             /*?} else {*/
             "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformation;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V"
             /*?}*/, at = @At("HEAD"))
-    private void citresewn$fixMojankCITsContext(ItemStack stack, /*? <1.21.5 {*//*ModelTransformationMode*//*?} else {*//*ModelTransformation*//*?}*/ renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci) {
+    private void citresewn$fixMojankCITsContext(ItemStack stack, /*? <1.21.5 {*/ModelTransformationMode/*?} else {*//*ModelTransformation*//*?}*/ renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci) {
         if (!CONTAINER.active() || citresewn$mojankCITModel == null)
             return;
 
+        /*? <1.21.5 {*/
         if (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)
+        /*?} else {*/
+        /*if (renderMode == ModelTransformation.GUI || renderMode == ModelTransformation.GROUND || renderMode == ModelTransformation.FIXED)*/
+        /*?}*/
             ((TypeItem.BakedModelManagerMixinAccess) this.models.getModelManager()).citresewn$forceMojankModel(citresewn$mojankCITModel.get());
 
         citresewn$mojankCITModel = null;

@@ -37,7 +37,7 @@ public class ItemRendererMixin {
             /*?} else {*/
             "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformation;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V"
             /*?}*/, at = @At("HEAD"))
-    private void citresewn$enchantment$startApplyingItem(ItemStack stack, /*? <1.21.5 {*//*ModelTransformationMode*//*?} else {*//*ModelTransformation*//*?}*/ renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci) {
+    private void citresewn$enchantment$startApplyingItem(ItemStack stack, /*? <1.21.5 {*/ModelTransformationMode/*?} else {*//*ModelTransformation*//*?}*/ renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci) {
         if (CONTAINER.active())
             CONTAINER.apply();
     }
@@ -48,7 +48,7 @@ public class ItemRendererMixin {
             /*?} else {*/
             "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformation;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V"
             /*?}*/, at = @At("RETURN"))
-    private void citresewn$enchantment$stopApplyingItem(ItemStack stack, /*? <1.21.5 {*//*ModelTransformationMode*//*?} else {*//*ModelTransformation*//*?}*/ renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci) {
+    private void citresewn$enchantment$stopApplyingItem(ItemStack stack, /*? <1.21.5 {*/ModelTransformationMode/*?} else {*//*ModelTransformation*//*?}*/ renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, BakedModel model, CallbackInfo ci) {
         if (CONTAINER.active())
             CONTAINER.setContext(null);
     }
