@@ -12,6 +12,28 @@ You can get CIT Resewn(bundled with Defaults) from Modrinth, Curse Forge or by c
               <a href="https://modrinth.com/mod/cit-resewn"><img src="https://citresewn.shcm.io/img/modrinth.png" width="50px"></a>       
 <a href="https://www.curseforge.com/minecraft/mc-mods/cit-resewn"><img src="https://citresewn.shcm.io/img/curseforge.png" width="50px"></a>
 
+## Building from Source
+
+### Quick Start
+
+**Windows Users**: See [BUILD_SETUP_WINDOWS.md](BUILD_SETUP_WINDOWS.md) for detailed setup instructions.
+
+**Requirements**:
+- Java 21+ (for Minecraft 1.21+)
+- Java 17+ (for Minecraft <1.21)
+- Gradle 8.12+ (included via wrapper)
+
+**Build Commands**:
+```bash
+# Build for Minecraft 1.21.4
+./gradlew :1.21.4:build
+
+# Build for all versions
+./gradlew build
+```
+
+Output JAR files will be in `versions/{version}/build/libs/`
+
 ## CIT Docs
 Docs for CIT Resewn's usage are available over at https://citresewn.shcm.io
 
