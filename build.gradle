@@ -61,6 +61,8 @@ processResources {
 }
 
 jar {
+    archiveClassifier.set 'dev'
+
     from rootProject.file('LICENSE')
 }
 
