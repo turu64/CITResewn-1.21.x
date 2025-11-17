@@ -19,6 +19,7 @@ dependencies {
     modCompileOnly "com.terraformersmc:modmenu:${property('deps.modmenu')}"
     modCompileOnly "me.shedaniel.cloth:cloth-config-fabric:${property('deps.cloth-config')}"
 
+    implementation stonecutter.node.sibling("defaults").project
     include stonecutter.node.sibling("defaults").project
 }
 
