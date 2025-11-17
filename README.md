@@ -47,6 +47,81 @@ API usage documentation will be available soon over at [the docs](https://citres
 
 For example usage of the CIT Resewn API, take a look at how Defaults does it.
 
+## Minecraft 1.21.4 Support
+
+This branch includes experimental support for Minecraft 1.21.4, which required significant API adaptations due to breaking changes in Minecraft's codebase.
+
+### Implementation Status
+
+The 1.21.4 support was implemented in three phases:
+
+#### Phase 1: Conditional Imports (Commit: 88a093d)
+Added conditional preprocessing using Stonecutter to handle removed/changed classes:
+- `ModelLoader` → `BakedModelManager` (class renamed)
+- `ModelOverride` / `ModelOverrideList` (removed)
+- `ElytraItem` (removed)
+- `ArmorMaterial.Layer` (removed, replaced with equipment assets)
+
+All code using these classes is wrapped in version conditionals (`/*? <1.21.4 {*/ ... /*?}*/`) to compile for both old and new versions.
+
+#### Phase 2: Module Re-enablement (Commit: 79bdcf9)
+Re-enabled the `defaults` module for Minecraft 1.21.4 after Phase 1 conditional processing.
+
+#### Phase 3: Alternative API Implementation (Commit: 748f0b6)
+Implemented 1.21.4-specific alternatives for removed APIs:
+
+**TypeItem.java**:
+- Custom `CITOverrideList` implementation that doesn't extend the removed `ModelOverrideList`
+- Simplified model override storage and application logic
+- Conditional processing in `getItemModel()` for different override systems
+
+**TypeElytra.java**:
+- Elytra detection using `Items.ELYTRA` comparison instead of `instanceof ElytraItem`
+- Maintains warning functionality for non-elytra items
+
+**ArmorFeatureRendererMixin.java**:
+- Armor texture replacement using new `EquipmentAsset` API
+- Wrapped texture interception for new equipment system
+
+**ItemRendererMixin.java**:
+- Conditional import handling for `ItemModels` (potential API changes)
+
+### Known Limitations
+
+1. **CITOverrideList Implementation**: The current implementation is simplified. Full model override matching logic based on item properties needs further refinement.
+
+2. **Armor Texture Replacement**: The `EquipmentAsset` API method signature is estimated and may require adjustment when compiled against actual 1.21.4 builds.
+
+3. **ModelLoader-based Mixins**: These remain disabled for 1.21.4 (wrapped in conditionals). Full migration of the model loading system is pending.
+
+4. **Testing**: All 1.21.4 implementations require testing against actual Minecraft 1.21.4 builds for validation and bug fixing.
+
+### Build Requirements
+
+For Minecraft 1.21.4:
+- Java 21 or higher
+- Gradle 8.12+
+- Fabric Loom 1.9.2
+- Fabric API 0.113.0+1.21.4
+
+The build system automatically selects the correct Java version based on the target Minecraft version (Java 17 for <1.21, Java 21 for ≥1.21).
+
+### Stonecutter Preprocessing
+
+This project uses [Stonecutter](https://stonecutter.kikugie.dev/) for multi-version support. The preprocessor directives follow this format:
+
+```java
+/*? <1.21.4 {*/
+// Code for Minecraft versions below 1.21.4
+import net.minecraft.client.render.model.ModelLoader;
+/*?} else {*/
+/*// Code for Minecraft 1.21.4+
+import net.minecraft.client.render.model.BakedModelManager;
+*//*?}*/
+```
+
+The active version is set in `stonecutter.gradle`.
+
 ## Contributing
 
 Bug fixes and feature implementations are always welcome and will usually be accepted once verified to be ok/fit in the mod.
