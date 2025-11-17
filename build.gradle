@@ -19,7 +19,13 @@ dependencies {
     modCompileOnly "com.terraformersmc:modmenu:${property('deps.modmenu')}"
     modCompileOnly "me.shedaniel.cloth:cloth-config-fabric:${property('deps.cloth-config')}"
 
-    include stonecutter.node.sibling("defaults").project
+    // Defaults module is not compatible with Minecraft 1.21.4+ due to extensive API changes
+    // Only include it for versions below 1.21.4
+    def mcVersion = stonecutter.current.version
+    def isBelow1_21_4 = !mcVersion.startsWith('1.21.4') && !mcVersion.startsWith('1.21.5')
+    if (isBelow1_21_4) {
+        include stonecutter.node.sibling("defaults").project
+    }
 }
 
 fletchingTable {
