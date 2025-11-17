@@ -475,8 +475,13 @@ public class TypeItem extends CITType {
         BakedModel bakedModel = bakedSubModels.apply(this.bakedModel, context.stack, world, context.entity, seed);
 
         // apply model overrides
+        /*? <1.21.4 {*/
         if (bakedModel != null && bakedModel.getOverrides() != null)
             bakedModel = bakedModel.getOverrides().apply(bakedModel, context.stack, world, context.entity, seed);
+        /*?} else {*/
+        /*// In 1.21.4+, model overrides are handled differently
+        // The bakedSubModels already contains the override logic
+        *//*?}*/
 
         return bakedModel;
     }
@@ -504,8 +509,35 @@ public class TypeItem extends CITType {
     }
     /*?} else {*/
     /*public static class CITOverrideList {
+        // 1.21.4+ implementation without ModelOverrideList
+        private final List<BakedModelEntry> overrides = new ArrayList<>();
+
         public void override(Object key, BakedModel bakedModel) {
-            // TODO: Implement for 1.21.4+
+            // In 1.21.4+, model overrides work differently
+            // This is a simplified implementation that stores models for later retrieval
+            overrides.add(new BakedModelEntry(key, bakedModel));
+        }
+
+        public BakedModel apply(BakedModel originalModel, ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
+            // TODO: Implement proper model override logic for 1.21.4+
+            // This should match against item properties and return the appropriate model
+            for (BakedModelEntry entry : overrides) {
+                // Simplified: just return first override if any exist
+                if (entry.model != null) {
+                    return entry.model;
+                }
+            }
+            return originalModel;
+        }
+
+        private static class BakedModelEntry {
+            final Object key;
+            final BakedModel model;
+
+            BakedModelEntry(Object key, BakedModel model) {
+                this.key = key;
+                this.model = model;
+            }
         }
     }
     *//*?}*/

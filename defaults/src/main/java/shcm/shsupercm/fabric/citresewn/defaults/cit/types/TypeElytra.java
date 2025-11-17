@@ -42,7 +42,13 @@ public class TypeElytra extends CITType {
                     if (!(item instanceof ElytraItem))
                         warn("Non elytra item type condition", null, properties);
         /*?} else {*/
-        /*// TODO: Implement elytra item check for 1.21.4+
+        /*// In 1.21.4+, ElytraItem class was removed
+        // Check if item is elytra by comparing with Items.ELYTRA
+        for (CITCondition condition : conditions)
+            if (condition instanceof ConditionItems items)
+                for (Item item : items.items)
+                    if (item != Items.ELYTRA)
+                        warn("Non elytra item type condition", null, properties);
         *//*?}*/
 
         texture = resolveAsset(properties.identifier, properties.getLastWithoutMetadata("citresewn", "texture"), "textures", ".png", resourceManager);

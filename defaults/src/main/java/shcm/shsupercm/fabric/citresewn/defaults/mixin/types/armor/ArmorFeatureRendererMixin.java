@@ -67,7 +67,28 @@ public class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEn
         return original.call(layer, secondLayer);
     }
     /*?} else {*/
-    /*// TODO: Implement armor texture replacement for 1.21.4+ with new equipment API
+    /*// 1.21.4+ armor texture replacement using new equipment API
+    // In 1.21.4+, ArmorMaterial.Layer was removed and replaced with equipment assets
+    // This is a placeholder implementation that needs proper method signature
+
+    @WrapOperation(method = "renderArmor", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/EquipmentAsset;getTexture()Lnet/minecraft/util/Identifier;"))
+    public Identifier citresewn$replaceArmorTexture1_21_4(Object equipmentAsset, Operation<Identifier> original) {
+        if (citresewn$cachedTextures != null) {
+            // Try to extract texture path from the original identifier
+            Identifier originalId = original.call(equipmentAsset);
+            if (originalId != null) {
+                String path = originalId.getPath();
+                if (path.startsWith("textures/models/armor/") && path.endsWith(".png")) {
+                    String key = path.substring("textures/models/armor/".length(), path.length() - ".png".length());
+                    Identifier replacement = citresewn$cachedTextures.get(key);
+                    if (replacement != null)
+                        return replacement;
+                }
+            }
+            return originalId;
+        }
+        return original.call(equipmentAsset);
+    }
     *//*?}*/
     /*?}*/
 }

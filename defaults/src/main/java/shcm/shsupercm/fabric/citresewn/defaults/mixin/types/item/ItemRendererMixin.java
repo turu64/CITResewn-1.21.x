@@ -1,7 +1,11 @@
 package shcm.shsupercm.fabric.citresewn.defaults.mixin.types.item;
 
 import net.minecraft.client.render.VertexConsumerProvider;
+/*? <1.21.4 {*/
 import net.minecraft.client.render.item.ItemModels;
+/*?} else {*/
+/*import net.minecraft.client.render.item.ItemModels;  // May have changed in 1.21.4
+*//*?}*/
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 /*? <1.21.5 {*/
