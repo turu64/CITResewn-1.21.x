@@ -2,7 +2,7 @@ package shcm.shsupercm.fabric.citresewn.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.profiler.Profiler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +17,7 @@ import java.util.Map;
  * Initializes the (re)loading of active cits in the resource manager.
  * @see ActiveCITs
  */
-@Mixin(ModelLoader.class)
+@Mixin(BakedModelManager.class)
 public class ModelLoaderMixin {
     /**
      * @see ActiveCITs#load(ResourceManager, Profiler)
