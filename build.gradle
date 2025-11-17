@@ -77,7 +77,7 @@ if (stonecutter.current.isActive) {
     plugins.apply 'com.matthewprenger.cursegradle'
 
     modrinth {
-        token = TOKEN_MODRINTH
+        token = project.findProperty('TOKEN_MODRINTH') ?: System.getenv('MODRINTH_TOKEN') ?: ''
         projectId = property('publish.modrinth.id')
         uploadFile = remapJar
         changelog = java.nio.file.Files.readString(rootProject.file("Changelog.md").toPath())
@@ -89,7 +89,7 @@ if (stonecutter.current.isActive) {
     }
 
     curseforge {
-        apiKey = TOKEN_CURSEFORGE
+        apiKey = project.findProperty('TOKEN_CURSEFORGE') ?: System.getenv('CURSEFORGE_TOKEN') ?: ''
         project {
             id = property('publish.curseforge.id')
             changelogType = 'markdown'
