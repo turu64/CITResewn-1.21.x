@@ -7,8 +7,10 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
+/*? <1.21.4 {*/
 import net.minecraft.client.render.model.json.ModelOverride;
 import net.minecraft.client.render.model.json.ModelOverrideList;
+/*?}*/
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -53,7 +55,11 @@ public class TypeItem extends CITType {
     private final List<Item> items = new ArrayList<>();
 
     public Map<Identifier, Identifier> assetIdentifiers = new LinkedHashMap<>();
+    /*? <1.21.4 {*/
     public Map<List<ModelOverride.Condition>, JsonUnbakedModel> unbakedAssets = new LinkedHashMap<>();
+    /*?} else {*/
+    /*public Map<Object, JsonUnbakedModel> unbakedAssets = new LinkedHashMap<>();
+    *//*?}*/
     private Map<String, Either<SpriteIdentifier, String>> textureOverrideMap = new HashMap<>();
     private boolean isTexture = false;
 
@@ -475,6 +481,7 @@ public class TypeItem extends CITType {
         return bakedModel;
     }
 
+    /*? <1.21.4 {*/
     public static class CITOverrideList extends ModelOverrideList {
         public void override(List<ModelOverride.Condition> key, BakedModel bakedModel) {
             Set<Identifier> conditionTypes = new LinkedHashSet<>(Arrays.asList(this.conditionTypes));
@@ -495,6 +502,13 @@ public class TypeItem extends CITType {
                     , bakedModel);
         }
     }
+    /*?} else {*/
+    /*public static class CITOverrideList {
+        public void override(Object key, BakedModel bakedModel) {
+            // TODO: Implement for 1.21.4+
+        }
+    }
+    *//*?}*/
 
     public static class Container extends CITTypeContainer<TypeItem> {
         public Container() {

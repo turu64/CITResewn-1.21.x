@@ -3,10 +3,16 @@ package shcm.shsupercm.fabric.citresewn.defaults.mixin.types.item;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.render.model.BakedModel;
+/*? <1.21.4 {*/
 import net.minecraft.client.render.model.ModelLoader;
+/*?} else {*/
+/*import net.minecraft.client.render.model.BakedModelManager;
+*//*?}*/
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
+/*? <1.21.4 {*/
 import net.minecraft.client.render.model.json.ModelOverride;
+/*?}*/
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -30,8 +36,13 @@ import java.util.function.BiFunction;
 import static shcm.shsupercm.fabric.citresewn.CITResewn.info;
 import static shcm.shsupercm.fabric.citresewn.defaults.cit.types.TypeItem.CONTAINER;
 
+/*? <1.21.4 {*/
 @Mixin(ModelLoader.class)
+/*?} else {*/
+/*@Mixin(BakedModelManager.class)*/
+/*?}*/
 public class ModelLoaderMixin {
+    /*? <1.21.4 {*/
     @Shadow @Final private Map<Identifier, UnbakedModel> unbakedModels;
     @Shadow @Final private Map</*? >=1.21 {*/ModelIdentifier/*?} else {*//*Identifier*//*?}*/, UnbakedModel> modelsToBake;
     @Shadow @Final private Map</*? >=1.21 {*/ModelIdentifier/*?} else {*//*Identifier*//*?}*/, BakedModel> bakedModels;
@@ -94,4 +105,5 @@ public class ModelLoaderMixin {
 
         return original;
     }
+    /*?}*/
 }

@@ -2,9 +2,15 @@ package shcm.shsupercm.fabric.citresewn.defaults.mixin.common;
 
 import com.mojang.datafixers.util.Either;
 import net.minecraft.client.MinecraftClient;
+/*? <1.21.4 {*/
 import net.minecraft.client.render.model.ModelLoader;
+/*?} else {*/
+/*import net.minecraft.client.render.model.BakedModelManager;
+*//*?}*/
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
+/*? <1.21.4 {*/
 import net.minecraft.client.render.model.json.ModelOverride;
+/*?}*/
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import org.apache.commons.io.IOUtils;
@@ -23,9 +29,15 @@ import java.util.stream.Collectors;
 
 /**
  * Will be rewritten at some point.
+ * NOTE: Disabled for Minecraft 1.21.4+ due to ModelLoader removal
  */
+/*? <1.21.4 {*/
 @Mixin(ModelLoader.class)
+/*?} else {*/
+/*@Mixin(BakedModelManager.class)*/
+/*?}*/
 public class ModelLoaderMixin {
+    /*? <1.21.4 {*/
     @Inject(method = "loadModelFromJson", cancellable = true, at = @At("HEAD"))
     public void citresewn$forceLiteralResewnModelIdentifier(Identifier originalId, CallbackInfoReturnable<JsonUnbakedModel> cir) {
         if (ResewnItemModelIdentifier.marked(originalId)) {
@@ -75,4 +87,5 @@ public class ModelLoaderMixin {
             }
         }
     }
+    /*?}*/
 }

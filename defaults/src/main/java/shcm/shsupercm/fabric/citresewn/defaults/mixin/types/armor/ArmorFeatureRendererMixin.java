@@ -9,7 +9,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ArmorItem;
+/*? <1.21.4 {*/
 import net.minecraft.item.ArmorMaterial;
+/*?}*/
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -53,6 +55,7 @@ public class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEn
             cir.setReturnValue(identifier);
     }
     *//*?} else {*/
+    /*? <1.21.4 {*/
     @WrapOperation(method = "renderArmor", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ArmorMaterial$Layer;getTexture(Z)Lnet/minecraft/util/Identifier;"))
     public Identifier citresewn$replaceArmorTexture(ArmorMaterial.Layer layer, boolean secondLayer, Operation<Identifier> original) {
         if (citresewn$cachedTextures != null) {
@@ -63,5 +66,8 @@ public class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEn
         }
         return original.call(layer, secondLayer);
     }
+    /*?} else {*/
+    /*// TODO: Implement armor texture replacement for 1.21.4+ with new equipment API
+    *//*?}*/
     /*?}*/
 }
