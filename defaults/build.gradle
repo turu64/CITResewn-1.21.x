@@ -46,13 +46,19 @@ loom {
 java {
     withSourcesJar()
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        // Minecraft 1.21+ requires Java 21, older versions use Java 17
+        def mcVersion = stonecutter.current.version
+        def requiresJava21 = mcVersion.startsWith('1.21')
+        languageVersion = JavaLanguageVersion.of(requiresJava21 ? 21 : 17)
     }
     archivesBaseName = "${property('mod.jarname')}-defaults"
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.release.set(17)
+    // Minecraft 1.21+ requires Java 21, older versions use Java 17
+    def mcVersion = stonecutter.current.version
+    def requiresJava21 = mcVersion.startsWith('1.21')
+    options.release.set(requiresJava21 ? 21 : 17)
 }
 
 processResources {
@@ -73,7 +79,7 @@ if (stonecutter.current.isActive) {
     plugins.apply 'com.modrinth.minotaur'
 
     modrinth {
-        token = TOKEN_MODRINTH
+        token = project.findProperty('TOKEN_MODRINTH') ?: System.getenv('MODRINTH_TOKEN') ?: ''
         projectId = property('publish.modrinth.defaults.id')
         uploadFile = remapJar
         versionNumber = version
