@@ -13,7 +13,8 @@ pluginManagement {
 
 plugins {
     // id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'  // Disabled: requires network access
-    id 'dev.kikugie.stonecutter' version '0.5-beta.3'
+    id 'dev.kikugie.stonecutter' version '0.5'  // Changed from beta to stable
+
 
     id 'fabric-loom' version '1.9.2' apply false
     id 'io.shcm.shsupercm.fabric.fletchingtable' version '1.6' apply false
