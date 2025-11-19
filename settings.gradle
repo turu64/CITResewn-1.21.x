@@ -13,7 +13,7 @@ pluginManagement {
 
 plugins {
     // id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'  // Disabled: requires network access
-    id 'dev.kikugie.stonecutter' version '0.4.5'  // Using stable 0.4.x series
+    id 'dev.kikugie.stonecutter' version '0.4.5'  // Trying 0.4.5 which we know exists
 
 
     id 'fabric-loom' version '1.9.2' apply false
